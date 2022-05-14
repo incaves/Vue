@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 源数据
+    let person = {
+      name: "杜甫",
+      age: 18
+    }
+    // 模拟Vue2中实现响应式
+    // 1.准备一个空对象
+    let p = {}
+    // 2.
+    Object.defineProperty(p, 'name', {
+      get() {
+        // 读取name时调用
+        return person.name
+      },
+      set(value) {
+        // 修改name时调用
+        console.log('修改了name属性,要去更新页面');
+        person.name = value
+      }
+    })
+    Object.defineProperty(p, 'age', {
+      configurable: true, // 可配置
+      get() {
+        // 读取age时调用
+        return person.age
+      },
+      set(value) {
+        // 修改age时调用
+        console.log('修改了age属性,要去更新页面');
+        person.age = value
+      }
+    })
+    // 发现添加一个数据和删除一个数据 捕获不到 不是响应式原理
+    // 也不能通过数组的下标修改数据
+  </script>
+</body>
+</html>

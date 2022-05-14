@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+  <!-- VueComponent.prototype.__proto__ === Vue.prototype -->
+  <div id="app">
+    <school></school>
+  </div>
+  <script>
+    Vue.config.productionTip = false
+    Vue.prototype.x = 101
+    const school = Vue.extend({
+      template: `
+         <div>
+           <h2>学校名称:{{name}}</h2>
+           <h3>学校地址:{{address}}</h3>
+           <button @click="add">原型</button>
+         </div>
+       `,
+      data() {
+        return {
+          name: "清华",
+          address: "北京"
+        }
+      },
+      methods: {
+        add() {
+          console.log(this.x);  // Vue的实例 组件也可以拿到
+        }
+      },
+    })
+    const vm = new Vue({
+      el: "#app",
+      data: {},
+      components: {
+        school
+      }
+    })
+    // school === VueComponent  重要的内置关系
+    console.log(school.prototype.__proto__ === Vue.prototype); // true
+    // 为什么要有这个关系?(原理图)
+    // 让组件实例对象(VueComponent) 可以访问到Vue原型上的属性和方法
+  </script>
+</body>
+</html>

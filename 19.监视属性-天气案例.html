@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+      <h2>今天天气很{{info}}</h2>
+      <button @click="changeClick">切换天气</button>
+      <!-- 当监视属性变化时 回调函数自动调用 进行相关操作 -->
+      <!-- 监视属性必须存在才能监视 -->
+      <!-- 两种写法 -->
+  </div>
+      <script>
+         Vue.config.productionTip = false
+         const vm = new Vue({
+            el:"#app",
+            data:{
+              isHot:true
+            },
+            methods: {
+              changeClick(){
+                  this.isHot = !this.isHot
+              }
+            },
+            computed:{
+                info(){
+                  return this.isHot ? "炎热" : "凉爽"
+                }
+            },
+            watch:{
+              immediate:true, // 初始化时(页面刚启动)让handler调用一下
+              // 监视isHot
+              isHot:{
+                // handeler函数 当isHot发生改变时调用
+                 handler(newValue,oldVlaue){
+                    // 可以把修改前的值 和修改后的值给到
+                    console.log(newValue,oldVlaue)
+                 }
+              },
+              info:{
+                  handler(){
+                     console.log('info计算属性触发了');
+                  }
+              }
+            }
+         })
+        // 也可以实现
+         vm.$watch('isHot',{
+            handler(newValue,oldVlaue){
+                    console.log(newValue,oldVlaue)
+            }
+         })
+      </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>localStorage</title>
+</head>
+<body>
+  <!-- 关闭了浏览器 数据也存在 -->
+  <!-- key value 建值对-->
+  <h2>localStorage中保存</h2>
+  <button onclick="saveData()">点我保存一个数据</button>
+  <button onclick="raveData()">点我读取一个数据</button>
+  <button onclick="yaveData()">点我删除一个数据</button>
+  <button onclick="paveData()">点我清空一个数据</button>
+  <script>
+    let p = { name: "zs", age: 19 }
+    function saveData() {
+      localStorage.setItem('msg', 'hello') //值必须是字符串
+      // localStorage.setItem(p)
+      localStorage.setItem('peson', JSON.stringify(p))
+    }
+    // 读取不出来(没有的数据)就是null
+    function raveData() {
+      const result = localStorage.getItem('peson')
+      console.log(JSON.parse(result));
+    }
+    function yaveData() {
+      localStorage.removeItem('msg')
+    }
+    function paveData() {
+      localStorage.clear()
+    }
+  </script>
+</body>
+</html>

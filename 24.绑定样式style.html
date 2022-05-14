@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+       .jichu {
+          width: 200px;
+          height: 200px;
+          background-color: blue;
+          padding: 30px;
+       }
+       .a{
+          border: 2px solid red;
+       }
+       .b {
+          background-color: aqua;
+       }
+       .c {
+          font-size: 20px;
+          background-color: seagreen;
+       }
+       .y {
+         background-color: pink;
+       }
+       .k{
+          font-size: 1px;
+       }
+       .p {
+         border-radius: 50px;
+       }
+  </style>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+   <div id="app">
+      <!-- 对象写法  -->
+       <div class="jichu" :style="faize">{{name}}</div>
+       <!-- 数组 -->
+       <div class="jichu" :style="[faize,faize2]">{{name}}</div>
+       <!-- 数组 -->
+       <div class="jichu" :style="faizeArr">{{name}}</div>
+   </div>
+    <script>
+      Vue.config.productionTip = false
+      new Vue({
+        el:"#app",
+        data:{
+          name:"留与",
+          faize:{
+            fontSize:'40px',
+            color:"red"
+          },
+          faize2:{
+            backgroundColor:'pink'
+          },
+          faizeArr:[
+          {
+            fontSize:'10px',
+            color:"blue"
+          },
+          {
+            backgroundColor:'red'
+          }
+          ]
+        },
+      })
+      </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+     <div id="app">
+       <button @click="updateM">更新马冬梅的信息成功版</button>
+       <button @click="updateP">更新马冬梅的信息失败版</button>
+         <ul>
+           <li v-for="(i,index) in list" :key="i.id">
+            姓名{{i.name}}-年龄{{i.age}}-性别{{i.sex}}
+            </li>  
+         </ul>
+     </div>
+     <script>
+        Vue.config.productionTip= false
+        const vm = new Vue({ 
+        el:"#app",
+        data:{
+               list:[
+                  {id:1,name:"马冬梅",age:16,sex:"女"},
+                  {id:2,name:"周冬雨",age:18,sex:"女"},
+                  {id:3,name:"周杰伦",age:19,sex:"男"},
+                  {id:4,name:"温兆伦",age:17,sex:"男"}
+               ],
+          },
+          methods: {
+            updateM(){
+                this.list[0].name = "马老师"
+                this.list[0].age = 20
+                this.list[0].sex = "男"
+            },
+            updateP(){
+              // 开发者工具也没改  但是vm中改了
+              //  this.list[0] = {id:1,name:"马老大",age:15,sex:"男"}  不奏效
+              //  第一次尝试 先点击按钮 在查看开发者工具  开发者工具没有变化 查看vm成功
+              //  第二次尝试 先点击按钮 在查看vm  之后在查看开发者工具  开发者工具成功
+              //  首先要明白Vue怎么检测数据的改变(32)
+              this.list.splice(0,1, {id:1,name:"马老大",age:15,sex:"男"})  // 成功版
+            }
+          },
+        })
+     </script>
+</body>
+</html> 

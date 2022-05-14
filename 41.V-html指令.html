@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>内置指令</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+  <!-- 使用v-html标签 安全性问题
+   在网站上动态渲染HTML是非常危险的 容易导致XSS攻击
+   一定要在可信的内容上使用V-html 永远不要在用户提交的内容哈桑
+  
+  -->
+     <div id="app">
+       <!-- v-text不能结构解析标签 -->
+        <h2 v-text="name"></h2>
+        <h2 v-text="str"></h2>
+        <!-- v-html可以 -->
+        <h2 v-html="str"></h2>
+     </div>
+     <script>
+         Vue.config.productionTip = false
+         new Vue({
+           el:"#app",
+           data:{
+             name:"登高",
+             str:"<h2>登高</h2>"
+           },
+         })
+     </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+      <h2>登高必{{name}}</h2>
+      <button v-on:click="showBtn1">点击提示信息01</button>
+      <!-- 简写 传惨就加小括号 如果用这种就没有event了-->
+      <button @click="showBtn2(101)">点击提示信息02</button>
+      <!-- event -->
+      <button @click="showBtn3(102,$event)">点击提示信息03</button>
+    </div>
+    <script>
+          Vue.config.productionTip = false
+          const vm = new Vue({
+            el:"#app",
+            data:{
+               name:"自卑"
+            },
+            methods:{
+               showBtn1(event){
+                  console.log(event.target) // 可以拿到元素信息 <button>点我提示信息</button>
+                  console.log(event.target.innerText); // 点我提示信息
+                  console.log(this === vm); // 指向Vue实例 true 如果是箭头函数 指向window
+               },
+               showBtn2(id){
+                  console.log(id); // id
+               },
+               showBtn3(id,event){
+                  console.log(id);
+                  console.log(event);
+               },
+              // 函数不参加数据代理 只代理data中的数据
+            }
+          })
+    </script>
+</body>
+</html>

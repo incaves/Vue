@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+      姓:<input type="text" v-model="firstName"><br />
+      名:<input type="text" v-model="lastName"><br />
+      <!-- 记得加小括号 如果不加相当于把fullName这个函数用插值表达式插入进去 -->
+      <!-- 每次修改fistName的值时 都会调用fullName 然后重新解析Vue模版 -->
+      全名:<span>{{fullName()}}</span>
+  </div>
+      <script>
+         Vue.config.productionTip = false
+         const vm = new Vue({
+            el:"#app",
+            data:{
+              firstName:"杜",
+              lastName:"甫"
+            },
+            methods:{
+               fullName(){
+                   return this.firstName + this.lastName
+               }
+            }
+         })
+      </script>
+</body>
+</html>

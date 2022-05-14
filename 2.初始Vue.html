@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 开发版本 -->
+  <script src="./JS/vue.js"></script>
+  <!-- 引入了就相当于全局引入了一个 Vue 的构造函数 -->
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id="app">
+      <h1>杜甫,{{message}},{{1 + 1}},{{Date.now()}}</h1>
+      <h1>{{age.toUpperCase()}},函数调用表达式</h1> 
+      <!-- 插值表达式中只能写js表达式 不嫩好写js代码语句 -->
+  </div>
+  <div id="app">
+    <h1>杜甫,{{message}}</h1>
+  </div>
+  <!-- 无效 -->
+  <div>{{message}}</div>
+  app容器里的代码被称之为 Vue模版
+   <script>
+    // 注意区分: js表达式和js代码(语句)
+    // 表达式:一个表达式会产生一个值,可以放在任何一个需要值的地方  a = 0 a+b  dome(1)函数调用表达式  x===y ? 'a' : 'b'
+    // js代码语句   if(){} for(){}
+      Vue.config.productionTip = false // 阻止 vue 在启动时生成生产提示
+      new Vue({ // 构造函数 Vue实例 且要传入配置对象
+         el:'#app',  // element(元素)  id选择器找到了这个容器
+        // el用于指定当前Vue实例为那个容器服务,值通常为Css选择器字符串
+        // el:document.getElementById('app'),  
+        // el:".app"  class
+         data:{ // 数据  data中用于存储数据,供el指定的容器去使用
+           message:"登高必自卑", // 插值表达式
+           age:"one"
+         }
+      })
+    //Vue只能接管一次app实例   1 - 1 对应
+   </script>
+</body>
+</html>

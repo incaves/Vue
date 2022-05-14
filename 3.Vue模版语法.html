@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+    <!-- 全局容器  -->
+    <div id="app">
+        <h1>插值语法</h1>
+        <h3>你好Vue,{{message}}</h3>
+        <hr />
+        <h1>指令语法</h1>
+        <a v-bind:href="CaseOp.url" :target="target">点我去{{CaseOp.message}}</a>
+        <a :href="CaseOp.url.toUpperCase()"></a>
+        <!-- 插值表达式一般用于标签内容 <h1>之中</h1> -->
+        <!-- 指令语法一般用于标签属性 标签体内容 绑定事件等-->
+    </div>
+    <script>
+       Vue.config.productionTip = false // 阻止 vue 在启动时生成生产提示
+       new Vue({
+          el:"#app",
+          data:{
+             message:"Jack",
+             target:"_blank",
+             CaseOp:{
+                url:"http://www.taobao.com",
+                message:"淘宝"
+             }
+          }
+       })
+    </script>
+</body>
+</html>

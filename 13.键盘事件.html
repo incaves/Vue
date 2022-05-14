@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+     <div id="app">
+      <input type="text" placeholder="按下回车提示输入" @keyup.enter="showInpt">
+      <input type="text" placeholder="按下回车提示输入" @keyup.delete="showInpt">
+      <input type="text" placeholder="按下回车提示输入" @keyup.esc="showInpt">
+      <input type="text" placeholder="按下回车提示输入" @keydown.tab="showInpt">
+      <!--系统修饰键盘 以下  按下修饰键的同时,再按下其他键m随后释放其他键,事件才被触发 -->
+      <input type="text" placeholder="按下回车提示输入" @keyup.ctrl="showInpt">
+      <input type="text" placeholder="按下回车提示输入" @keyup.alt="showInpt">
+      <input type="text" placeholder="按下回车提示输入" @keyup.shift="showInpt">
+      <input type="text" placeholder="按下回车提示输入" @keyup.meta="showInpt">
+      <input type="text" placeholder="按下回车提示输入" @keyup.ctrl.y="showInpt">
+     </div>
+     <script>
+          Vue.config.productionTip = false
+          Vue.config.keyCode.huiche = 13 //定义了一个别名键
+          const vm = new Vue({
+             el:"#app",
+             data:{},
+             methods:{
+              showInpt(e){
+                // 如果不加判断每次输入的值都会被打印 Vue中 在事件后加.enter
+                // if(e.keyCode !== 13) return        
+                console.log(e.target.value);
+                console.log(e.key);
+              }
+             }
+          })
+     </script>
+</body>
+</html>

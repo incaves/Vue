@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+       .jichu {
+          width: 200px;
+          height: 200px;
+          background-color: blue;
+          padding: 30px;
+       }
+       .a{
+          border: 2px solid red;
+       }
+       .b {
+          background-color: aqua;
+       }
+       .c {
+          font-size: 20px;
+          background-color: seagreen;
+       }
+       .y {
+         background-color: pink;
+       }
+       .k{
+          font-size: 1px;
+          
+       }
+       .p {
+         border-radius: 50px;
+       }
+  </style>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+   <div id="app">
+       <!-- class属性需要绑定了 变化的样式 :class-->
+       <!-- 字符串写法  适用于样式类名不确定 需要动态绑定 -->
+       <div class="jichu" :class="cla" @click="divBtn">{{name}}</div>
+       <hr />
+       <!-- 数组写法 要绑定的样式个数不确定 名字也不确定 -->
+       <div class="jichu" :class="arr">{{name}}</div>
+       <hr />
+       <!-- 对象写法 要绑定的样式个数确定 名字确定 但要动态决定用不用 -->
+       <div class="jichu" :class="qwe">{{name}}</div>
+   </div>
+    <script>
+      Vue.config.productionTip = false
+      new Vue({
+        el:"#app",
+        data:{
+          name:"雪中悍刀行",
+          cla:"a",  // 配置class  应用a样式
+          arr:['y','k','p'], // 一上来三个样式全部使用
+          qwe:{
+            y:false,
+            p:false,
+          }
+        },
+        methods: {
+          divBtn(){
+              const array = ['a','b','c']
+              // 随机生成0 1 2 三个数字
+              const index = Math.floor(Math.random()*3)
+              this.cla = array[index]
+          }
+        },
+      })
+      </script>
+</body>
+</html>

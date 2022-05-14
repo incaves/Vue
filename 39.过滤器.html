@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./JS/vue.js"></script>
+    <script src="./JS/dayjs.min.js"></script>
+  </head>
+  <body>
+    <!-- 过滤器就是对要显示的数据进行特定格式化后在显示的数据 -->
+    <div id="app">
+      <h2>显示格式化后的时间</h2>
+      <!-- 计算属性实现 -->
+      <h3>现在是{{fmtTime}}</h3>
+      <!-- methods实现 -->
+      <h3>现在是{{getFmtTime()}}</h3>
+      <!-- 过滤器实现 -->
+      <h3>现在是:{{time | timeFormater}}</h3>
+      <!-- 可以其他函数调用 可以传参 -->
+      <h3>现在是:{{time | timeFormater('YYYY-MM-DD')}}</h3>
+      <!-- 可以使用多个 -->
+      <h3>现在是:{{time | timeFormater | mySlice}}</h3>
+      <!-- 不是只能当作插值语法来使用  不推荐-->
+      <h3 :x="msg | mySlice">杜甫</h3>
+      <!-- v-model 不可以会报错 -->
+      <input type="text" v-model="msg | mySlice" />
+    </div>
+    <div id="app2">
+      <h2>{{msg | mySlice}}</h2>
+    </div>
+    <script>
+      Vue.config.productionTip = false
+      // 全局过滤器
+      Vue.filter('mySlice', function (value) {
+        return value.slice(0, 4)
+      })
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          time: Date.now(),
+          msg: '登高必自卑',
+        },
+        methods: {
+          getFmtTime() {
+            return dayjs(this.time).format('YYYY-MM-DD HH:mm:ss')
+          },
+        },
+        computed: {
+          fmtTime() {
+            return dayjs(this.time).format('YYYY-MM-DD HH:mm:ss')
+          },
+        },
+        // 局部的过滤器
+        filters: {
+          // value是time
+          timeFormater(value) {
+            console.log(value)
+            return dayjs(value).format('YYYY-MM-DD HH:mm:ss')
+          },
+          mySlice(value) {
+            return value.slice(0, 4)
+          },
+        },
+      })
+      new Vue({
+        el: '#app2',
+        data: {
+          msg: '117277777',
+        },
+      })
+    </script>
+  </body>
+</html>

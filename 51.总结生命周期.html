@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+  <!-- 
+    常用的生命周期钩子:
+    1.mounted:发送ajax请求 启动定时器 绑定自定义事件 订阅消息等
+    2.beforeDestory:清除定时器 解绑自定义事件 取消订阅消息等收尾工作
+    关于销毁Vue实例
+    1.销毁后借助Vue开发者工具看不到任何信息
+    2.销毁后自定义事件会失效 但原生DOM事件依然有效
+    3.一般不会在beforeDestory操作数据 因为即使操作数据 也不会触发更新流程了
+   -->
+  <div id="root">
+    <h2 :style="{opacity}">{{msg}}</h2>
+    <button @click="stop">停止变换</button>
+    <!-- 定时器已经停掉  但是点击这个按钮还是会设置为1 (响应式还在) -->
+    <button @click="opacity = 1">透明度设置为一</button>
+    <!-- 想要的效果是定时器停掉后 vm都删掉了 响应式也没有 -->
+    <!-- 不用clearInterval(this.timer) -->
+    <!-- this.$destroy() 可以做到 -->
+  </div>
+  <script>
+    Vue.config.productionTip = false
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        msg: "Vue",
+        opacity: 1,
+        a: false
+      },
+      methods: {
+         stop(){
+            // clearInterval(this.timer)
+            this.$destroy() 
+         }
+      },
+      mounted() {
+        console.log('mounted');
+        this.timer = setInterval(() => {
+           // this.$destroy() 什么都没有了 但是定时器还在 在beforeDestroy methods不行
+          console.log('setInterval');  
+          this.opacity -= 0.01
+          if (this.opacity <= 0) this.opacity = 1
+        }, 16);
+      },
+      beforeDestroy() {
+        console.log('vm即将被删除');
+        clearInterval(this.timer)
+      },
+    })
+  </script>
+</body>
+</html>

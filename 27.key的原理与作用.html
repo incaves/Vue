@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+  <!-- 
+    key就是给节点进行标识(就相当于身份证号)
+
+   -->
+     <div id="app">
+         <ul>
+           <li v-for="(i,index) in list" :key="i.id">
+             {{index}}姓名{{i.name}}-年龄{{i.age}}
+      <!--  添加了input后 再点击添加按钮发现会错一位 张三的input的值 会到刘四里面(id没问题 index会出问题 不写也会出问题) -->
+             <input type="text">
+            </li>  
+         </ul>
+         <!-- 追加到张三前 -->
+         <button @click.once="add">追加一个人</button>
+         <!-- index问题不是特别大(不要打乱数据的顺序就没问题) -->
+         <!-- diff算法  虚拟DMO -->
+         <!-- 如果没有写key  vue会自动帮你补一个key 就是 index -->
+     </div>
+     <script>
+         Vue.config.productionTip = false
+         const vm = new Vue({
+             el:"#app",
+             data:{
+               list:[
+                  {id:1,name:"张三",age:19},
+                  {id:2,name:"张二",age:18},
+                  {id:3,name:"张一",age:17}
+               ]
+             },
+             methods: {
+                add(){
+                   const y = {id:"004",name:"刘四",age:"46"}
+                   this.list.unshift(y) // push肯定没问题
+                }
+             },
+         })
+     </script>
+</body>
+</html> 

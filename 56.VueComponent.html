@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <school></school>
+    <hello></hello>
+  </div>
+  <script>
+    // 1.school组件本质是什么?(数据类型是什么数组..布尔值 一般对象等等) 
+    // —— 本质是名为 new VueComponent 构造函数   是Vue.extend自己生成的
+    // 2.只要写组件的标签名 Vue解析时会自动创建school的实例对象(因为是构造函数所以有实例对象)
+    //  即Vue帮忙执行 new VueComponent(options) 括号里的内容就是创建组件时extend里面的数据 template data...
+    // 3.每次调用Vue.extend时 返回的都是一个全新的VueComponent!
+    // 每Vue.extend创建一个组件都会生成一个新的VueComponent
+    // 4.关于this指向
+    // 组件配置中的data methods watch computed 中的函数都指向 VueComponent实例对象
+    // new Vue 配置中的data methods watch computed中的函数指向 Vue实例
+    // 5.VueComponent —— vc
+    // 6. VueComponent  都被 vm管理着
+    Vue.config.productionTip = false
+    // 创建school组件
+    const school = Vue.extend({
+      template: `
+         <div>
+           <h2>学校名称:{{name}}</h2>
+           <h3>学校地址:{{address}}</h3>
+           <button @click="add">按钮</button>
+         </div>
+       `,
+      data() {
+        return {
+          name: "清华",
+          address: "北京"
+        }
+      },
+      methods: {
+        add() {
+          alert(this.name)
+          console.log(this); // VueComponent的实例对象 跟vm一样 _data 数据代理...
+        }
+      },
+    })
+    const test = Vue.extend({
+      template: `<span>登高必自卑</span>`
+    })
+    const hello = Vue.extend({
+      template: `
+           <div>
+             <h2>{{msg}}</h2>
+             <test></test>
+           </div>
+        `,
+      data() {
+        return {
+          msg: "Vue"
+        }
+      },
+      components: {
+        test
+      }
+    })
+    console.log(school)
+    console.log(hello);
+    console.log(school === hello); // false
+    school.a = 101
+    console.log(school.a); // 101
+    console.log(hello.a); // 如果是一样的会hello上也会有a 但是结果是undefined
+    const vm = new Vue({
+      el: "#app",
+      components: {
+        school,
+        hello
+      }
+    })
+  </script>
+</body>
+</html>

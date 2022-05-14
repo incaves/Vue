@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+     <div id="app">
+          <h1>学生信息</h1>
+          <button @click="student.age++">年龄加一</button> <br />
+          <!-- 以前不知道 现在要添加 并且性别还是响应式的 -->
+          <button @click="addSex">添加性别属性 默认值 男</button> <br />
+          <button @click="student.sex = '未知 '">修改性别</button> <br />
+          <!-- 后添加的对象也是响应式的 -->
+          <button @click="addFriend">在列表首位添加一个朋友</button> <br />
+          <button @click="updateFriendName">修改第一个朋友的名字为:ww</button> <br />
+          <button @click="addHotr">添加一个爱好</button> <br />
+          <button @click="updateHort">修改第一个爱好为:上网</button> <br />
+          <!-- 因为filter也是数组的方法 -->
+          <button @click="updateHortS">过滤掉抽烟</button> <br />
+          <h3>姓名:{{student.name}}</h3>
+          <h3>年龄:{{student.age}}</h3>
+          <h3 v-if="student.sex">性别:{{student.sex}}</h3>
+          <h3>爱好:</h3>
+          <ul>
+               <li v-for="h in student.hobby">{{h}}</li>
+          </ul>
+          <h3>朋友:</h3>
+          <ul>
+               <li v-for="y in student.friends">朋友名字{{y.name}}——朋友年龄{{y.age}}</li>
+         </ul>
+     </div>
+     <script>
+         Vue.config.productionTip = false
+         const vm = new Vue({
+             el:"#app",
+             data:{
+              student:{
+                name:"tom",
+                age:18,
+                hobby:['抽烟','喝酒','烫头'],
+                friends:[
+                  {name:"zs",age:18},
+                  {name:"ls",age:29}
+                 ]
+                }
+             },
+             methods: {
+               addSex(){
+                  // this.student.sex = "男"  这样添加不是响应式的
+                  Vue.set(this.student,'sex','男')
+               },
+               addFriend(){
+                //  朋友是对象
+                  this.student.friends.unshift(
+                    {name:"jack",age:19}
+                  )
+               },
+               updateFriendName(){
+                //  this.student.friends[0] = 123 Vue不承认
+                   this.student.friends[0].name = "张三"
+                   this.student.friends[1].age = 101
+               },
+               addHotr(){
+                   this.student.hobby.push('游戏')
+               },
+               updateHort(){
+                  //  this.student.hobby[0] = '上网' 不可以
+                  // this.student.hobby.splice(0,1,'上网') 可以实现
+                  // Vue.set(this.student.hobby,0,'上网')  可以实现
+                  this.$set(this.student.hobby,0,'上网')
+               },
+               updateHortS(){
+               this.student.hobby = this.student.hobby.filter((y)=>{
+                     return y !== '抽烟'
+                  })
+               }
+             },
+         })
+     </script>
+</body>
+</html>

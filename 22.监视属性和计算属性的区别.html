@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+      姓:<input type="text" v-model="firstName"><br />
+      名:<input type="text" v-model="lastName"><br />
+      全名:<span>{{fullName}}</span>
+      <!-- 
+        监视属性和计算属性的区别:
+          计算属性能完成的功能 watch也可以完成
+          watch能完成的功能  计算属性不一定能完成   例如: watch可以进行异步操作
+       ----
+       所有被Vue管理的函数 最好写成普通函数 这样this的指向才是 vm 或 实例对象
+       所有不被VUe所管理的函数(定时器的回调函数  ajax的回调函数等 Promise回调函数) 最好写成箭头函数 这样this的指向 vm 或 实例对象
+       最终的目标都指向vm或实例对象
+        -->
+      -->
+  </div>
+      <script>
+         Vue.config.productionTip = false
+         const vm = new Vue({
+            el:"#app",
+            data:{
+              firstName:"杜",
+              lastName:"甫",
+              fullName:"杜-甫"
+            },
+            // 计算属性中是不能开启异步任务的 需要有返回值
+            // watch不需要
+            watch:{
+              firstName(newValue){
+                   setTimeout(() => {
+                     this.fullName = newValue + "-" + this.lastName
+                   }, 1000);
+              },
+              lastName(newValue){
+                   this.fullName = this.firstName + "-" + newValue
+              }
+            }
+         })
+      </script>
+</body>
+</html>

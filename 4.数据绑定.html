@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+  <style>
+       *{
+         margin: 0;
+         padding: 0;
+       }
+  </style>
+</head>
+<body>
+    <!-- 全局容器 -->
+    <div id="app">
+      <!-- 如果在输入框输入  Vue实例是没有变化的  是获取到的因为是单向绑定所以没有变化-->
+      <!-- 普通写法 -->
+      <div>单向数据绑定:<input type="text" :value="name"></div>
+      <div>双向数据绑定:<input type="text" v-model:value="name"></div>
+      <!-- 简介模式 -->
+      <div>双向数据绑定(2):<input type="text" v-model="name"></div>
+      <!-- 因为v-model只找有value的值 -->
+      <hr />
+      <h2 :y="name">登高必自卑</h2>
+      <!-- 代码报错  v-model只能应用在表单类元素上(输入,有value值) input select-->
+      <!-- 必须有value值 -->
+      <!-- v-model双向绑定  数据不仅能从data流向页面 还可以从页面流向date -->
+      <!-- v-bind:单向绑定  数据智能从date流向页面 -->
+      <h2 v-model:y="name">登高必自卑</h2>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        new Vue({
+          el:"#app",
+          data:{
+             name:'李清照'
+          }
+        })
+    </script>
+</body>
+</html>

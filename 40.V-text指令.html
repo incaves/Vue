@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>内置指令</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+     <div id="app">
+        <h2>{{name}}</h2>
+        <!-- 向其所在的标签插入文本 -->
+        <h2 v-text="name"></h2>
+        <!-- 插值语法更方便些 比如加个标点符号 -->
+        <!-- 不能解析标签 -->
+        <h2 v-text="str"></h2>
+     </div>
+     <script>
+         Vue.config.productionTip = false
+         new Vue({
+           el:"#app",
+           data:{
+             name:"登高",
+             str:"<h2>登高</h2>"
+           },
+         })
+     </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src=".//JS/vue.js"></script>
+</head>
+<body>
+  <!-- 条件一:创建一个v-big指令 和v-text相似 会把绑定的数值放大10倍 -->
+     <div id="app">
+       <h2>当前的值是:<span v-text="n"></span></h2>
+      <h2>放大10倍后的值是:<span v-big="n"></span></h2>
+      <button @click="n++">加加</button>
+     </div>
+     <script>
+          Vue.config.productionTip = false
+          const vm = new Vue({
+               el:"#app",
+               data:{
+                  n:1
+               },
+               directives:{
+                //  big什么时候才会被调用?
+                // 1.指令与元素成功绑定时会被调用
+                // 2.指令所在的模版重新解析时会被调用 
+                  big(element,binding){
+                    // element 是span标签  <span></span>  真实DOM
+                    // binding 是绑定的元素 .value 就是 n的值
+                     console.log(element,binding.value);
+                     element.innerText = binding.value * 10
+                  }
+               }
+          })
+     </script>
+</body>
+</html>

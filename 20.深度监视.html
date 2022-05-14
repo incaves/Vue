@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+      <h2>今天天气很{{info}}</h2>
+      <button @click="changeClick">切换天气</button>
+      <hr />
+      <h3>A的值是{{numbers.a}}</h3>
+      <button @click="numbers.a++">点我让A加一</button>
+      <h3>B的值是{{numbers.b}}</h3>
+      <button @click="numbers.b++">点我让B加一</button>
+      <!-- 
+        Vue中的watch默认不检测对象内部值的改变(一层)
+        配置deep:true 可以检测对象内容值改变(多层)
+       -->
+  </div>
+      <script>
+         Vue.config.productionTip = false
+         const vm = new Vue({
+            el:"#app",
+            data:{
+              isHot:true,
+              numbers:{
+                a:1,
+                b:1
+              }
+            },
+            methods: {
+              changeClick(){
+                  this.isHot = !this.isHot
+              }
+            },
+            computed:{
+                info(){
+                  return this.isHot ? "炎热" : "凉爽"
+                }
+            },
+            watch:{
+              // 目前只想检测a 不想检测b
+              // "numbers.a":{
+              // 监视多级结构某个人属性的变化
+              //    handler(){
+              //         console.log("a被修改了");
+              //    }
+              // },
+              // 监视多级结构所有个人属性的变化
+              numbers:{
+                  deep:true,//如果不开启只监视 numbers 不深入检测
+                  handler(){
+                    console.log('numbers发生了改变');
+                  }
+              },
+              isHot:{
+                 handler(newValue,oldVlaue){
+                    console.log(newValue,oldVlaue)
+                 }
+              }
+            }
+         })
+      </script>
+</body>
+</html>

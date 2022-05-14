@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+  <!-- 注意顺序 注册实例在最下面 中间是注册组件 最上面是组件的实例方法... -->
+  <div id="app"></div>
+  <div id="root">
+    <Hello></Hello>
+  </div>
+  <script>
+    Vue.config.productionTip = false
+    const Hello = Vue.extend({
+      template: `
+        <div>
+          <span>123</span>
+        </div>
+       `
+    })
+    Vue.component('Hello', Hello)
+    new Vue({
+      el: "#app"
+    })
+    new Vue({
+      el: '#root'
+    })
+  </script>
+</body>
+</html>

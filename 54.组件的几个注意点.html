@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h2>{{msg}}</h2>
+    <school></school>
+    <school />
+    <Student></Student>
+  </div>
+  <script>
+    Vue.config.productionTip = false
+    // 定义组件
+    const school = Vue.extend({
+      // name:"" 可以指定组件在开发者工具中呈现的名字
+      template: `
+         <div>
+           <h2>学校名称:{{name}}</h2>
+           <h3>学校地址:{{address}}</h3>
+         </div>
+       `,
+      data() {
+        return {
+          name: "清华",
+          address: "北京"
+        }
+      },
+    })
+    // Vue会判断是否有Vue.extend
+    const Student = {
+      template: `
+         <div>
+             <h2>简写方式</h2>
+         </div>
+       `,
+    }
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        msg: "Vue!"
+      },
+      // 局部注册
+      components: {
+        school,
+        Student
+        // 'my-school'
+        // MySchool 脚手架可以用 现在不行
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+  <!-- 这里属于 View -->
+  <div id="app">
+     <h1>学校名称:{{name}}</h1>
+     <h1>学校地址:{{address}}</h1>
+     <!-- vm出现的都可以在模版上用 -->
+     <h1>测试{{$options}}</h1>
+     <hr />
+     <h1>测试原型上的是否可以{{$on}}</h1>
+     <hr />
+     <h1>测试不加$是否可以{{_c}}</h1>
+     <!-- 都可以成功 -->
+  </div>
+    <script>
+      // 这里属于 Model
+       const vm = new Vue({ // new Vue 属于 ViewModel vm
+          el:"#app",
+          data:{
+            name:"北京",
+            address:"上海"
+          }
+        })
+        console.log(vm); // data都出现在了vm
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+      姓:<input type="text" v-model="firstName"><br />
+      名:<input type="text" v-model="lastName"><br />
+      <!-- 不要加小括号 -->
+      全名:<span>{{fullName}}</span>
+  </div>
+      <script>
+         Vue.config.productionTip = false
+         const vm = new Vue({
+            el:"#app",
+            data:{
+              firstName:"杜",
+              lastName:"甫"
+            },
+             // 不是什么时候都可以用简写 当不使用set时 只读不改 可以使用
+            computed:{
+              //  fullName:function(){
+               fullName(){
+                  return this.firstName + "-" + this.lastName
+               }
+            }
+         })
+      </script>
+</body>
+</html>

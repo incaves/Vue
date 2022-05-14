@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>内置指令</title>
+  <style>
+      [v-cloak]{
+        display: none;
+      }
+  </style>
+</head>
+<body>
+  <!-- js堵塞 引入js 如果慢3s会发生什么
+       div里面的内容会延迟3s加载 script也会
+   -->
+  <div id="app">
+     <h2 v-cloak>{{name}}</h2>
+  </div>
+  <!-- 第一次打开 显示 {{name}}  加上v-cloak就不会了-->
+  <!-- v-cloak介入会被删除 -->
+  <!-- 当网速慢时 不让这些1未被解析的模版 呈现在页面上这就是v-cloak的作用 -->
+  <script src="./JS/vue.js"></script>
+    <script>
+      Vue.config.productionTip = false
+      new Vue({
+        el: "#app",
+        data: {
+          name: "登高",
+        },
+      })
+    </script>
+</body>
+</html>

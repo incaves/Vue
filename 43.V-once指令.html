@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>内置指令</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+      <h2>当前的n值是{{n}}</h2>
+      <!-- 初始化的值时永远不变的 v-once使用后永远不变-->
+      <h2 v-once>初始化n值是{{n}}</h2>
+      <button @click="n++">点击加一</button>
+  </div>
+  <script>
+    Vue.config.productionTip = false
+    new Vue({
+      el: "#app",
+      data: {
+        n:"101"
+      },
+    })
+  </script>
+</body>
+</html>

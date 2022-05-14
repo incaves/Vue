@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+       <div id="app">
+         <!-- Failed to resolve directive: bindnumber 指令找不到 N - n 不推荐-->
+          <h2 v-bindNumber></h2>
+          <h2 v-bind-number></h2>
+          <h2 v-bindy="n"></h2>
+          <h2 v-big="n"></h2>
+       </div>
+       <script>
+             Vue.directive('bindy', {
+               bind() {
+                 console.log(this);
+               },
+               inserted(element, binding) {
+               },
+               //  指令所在的模版被重新解析时
+               update() {
+                 console.log('update');
+               }
+              //  等等
+             })
+             Vue.directive('bindNumber',function(element,binding){
+               console.log('全局');
+             })
+             const vm = new Vue({
+                 el:"#app",
+                 data:{
+                   n:1
+                 },
+                 directives:{
+                  // 都是局部指令 不能被另一个vue实例所使用
+                     bindNumber(){},
+                     bindy(){
+                       console.log(this); // 指向windows
+                     },
+                     'bind-number':function(){},
+                     big:{
+                       bind(){
+                         console.log(this);// 指向windows
+                       }
+                     }
+                 }
+             })
+       </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+     <div id="app">
+         <ul>
+           <!-- key的值可以是 id index 两者即可 -->
+           <li v-for="(i,index) in list" :key="i.id">
+             {{index}}姓名{{i.name}}-年龄{{i.age}}
+            </li>  
+         </ul>
+          <!-- 不仅仅可以遍历数组 还可以遍历对象 -->
+         <ul>
+          <li v-for="p of car">
+            {{p}}
+         </li>
+         <hr />
+         <!-- 遍历字符串 -->
+         <li v-for="(a,b) in str">
+            {{a}}-{{b}}
+         </li>
+         <!-- 遍历指定次数 -->
+         <li v-for="(a,b) in 6">
+          {{a}}-{{b}}
+       </li>
+         </ul>
+     </div>
+     <script>
+         Vue.config.productionTip = false
+         const vm = new Vue({
+             el:"#app",
+             data:{
+               list:[
+                  {id:1,name:"张三",age:19},
+                  {id:2,name:"张二",age:18},
+                  {id:3,name:"张一",age:17}
+               ],
+               car:{
+                  name:'奥迪',
+                  price:"70w",
+                  color:"pink"
+               },
+               str:"hello"
+             },
+         })
+     </script>
+</body>
+</html> 

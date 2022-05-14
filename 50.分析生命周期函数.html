@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生命周期全部</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h2>当前的n值时{{n}}</h2>
+        <h2 v-text="n"></h2>
+        <button @click="add">点我n+1</button>
+        <button @click="bye">点我销毁vm</button>
+    </div>
+    <script>
+          // 根据图片每一步 挂载流程
+           Vue.config.productionTip = false
+           const vm = new Vue({
+               el:"#app",
+              //  div中可以什么都不写 只要绑定el 为 id = app 自动挂载 也是图中的一步 Has 'template' options?
+              // 在template中必须有div包括 必须有根元素
+              //  template:'<h3>created下面的那一步 如果没有el 解析template</h3>',
+               data:{
+                 n:1
+               },
+               methods: {
+                 add(){
+                    console.log('add');
+                    this.n++
+                 },
+                 bye(){
+                    console.log('bye');
+                    this.$destroy() // 点击加一按钮也没有效果 
+                 }
+               },
+               watch:{
+                 n(){
+                   console.log('n变了');
+                 }
+               },
+              // 在数据检测 数据代理创建之前
+               beforeCreate() {
+                  console.log('beforCreate');
+                  // 输出了vm 但是没有data_data n的值也没有开启数据代理 也没怒add方法(this指向vm实例)
+                  console.log(this); 
+                  // debugger;断点 调试
+               },
+              // 创建完毕
+               created(){
+                 console.log('created');
+                 console.log(this); // n add _data 都有
+               },
+              // 此阶段Vue开始解析模版 生成虚拟DOM -- 还没有生成虚拟DOM
+              // -- 还没有生成真实DOM 
+              // 挂载之前
+               beforeMount() { // 所有对DOM的操作 最终都是不奏效
+                  console.log('beforeMount');
+                  console.log(this); // n还没有被解析  {{n}}
+                  document.querySelector('h2').innerText = "beforeMount"
+               },
+              // 中间 虚拟DOM 转为真实DOM 因为有这一步 所以beforeMount对DOM的操作不奏效
+              // 挂载完毕
+               mounted(){
+                // 经过Vue编译之后的
+                console.log('mounted');
+                console.log(this); // 所有都解析完了
+                // document.querySelector('h2').innerText = "mounted"  有效 避免操作DOM
+                // 初始化操作   网络请求....等等
+                console.log(this.$el instanceof HTMLElement);  //真实DOM
+               },
+              //  数据更新时调用  数据是新的 但是页面是旧的
+               beforeUpdate() {
+                 console.log('beforeUpdate');
+                 console.log(this.n);// 控制台打印 2 但是页面还是1
+                //  debugger;
+               },
+              // 新DOM 与 旧 DOM 进行比较  Model  - View 的更新
+              // 页面与数据保持一致
+               updated() {
+                 console.log('updated');
+                 console.log(this.n);
+                //  this.n = 101 点击按钮 首先执行
+                //  debugger;
+               },
+              // 要进到下个流程必须经过
+              // when vm.$destroy ls called
+              // 销毁之前 还是可以用
+              beforeDestroy() {
+                 console.log('beforeDestory');
+                 console.log(this.n); // 可以拿到
+                 this.add() // 虽然调用但不会变
+                 this.n = 101
+              },
+              // 销毁完毕 什么都没有了
+              destroyed() {
+                console.log('destroyed');
+              },
+           })
+    </script>
+</body>
+</html>

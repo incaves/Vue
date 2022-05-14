@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+     <div id="app">
+           <h2>诗名:{{name}}</h2>
+           <h2>作者:{{address}}</h2>
+           <h2>朝代:{{leader}}</h2>
+           <hr />
+           <h1>信息</h1>
+           <button @click="addSex">添加一个性别属性默认值是男</button>
+           <h2>读者姓名:{{student.name}}</h2>
+           <h2 v-if="student.sex">性别:{{student.sex}}</h2>
+           <h2>读者姓名:{{student.age.sAge}}_{{student.age.rAge}}</h2>
+           <h2>读者朋友</h2>
+           <ul>
+               <li v-for="y in student.friends">朋友名字{{y.name}}——朋友年龄{{y.age}}</li>
+           </ul>
+     </div>
+     <script>
+         Vue.config.productionTip = false
+         const vm = new Vue({
+             el:"#app",
+             data:{
+                name:"登高",
+                address:"杜甫",
+                leader:"",
+                student:{
+                  name:"tom",
+                  age:{
+                    rAge:40,
+                    sAge:20,
+                  },
+                friends:[
+                  {name:"zs",age:18},
+                  {name:"ls",age:29}
+                 ]
+                }
+             },
+            // Vue.set只允许往对象里添加数据 不允许往data中添加
+             methods: {
+               addSex(){
+                // this指向vm
+                  // Vue.set(this.student,'sex','男')
+                // 两种方法
+                  this.$set(this.student,'sex','男')                
+               }
+             },
+         })
+     </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h2 :style="{opacity}">{{msg}}</h2>
+        <h2 v-if="a">！！！</h2>
+    </div>
+     <script>
+          Vue.config.productionTip = false
+          const vm = new Vue({
+             el:"#root",
+             data:{
+               msg:"Vue",
+               opacity:1,
+               a:false
+             },
+            // 生命周期之中的函数
+            mounted() { // 挂载 Vue完成模版的解析 并把初始的真实的DOM放入页面后调用(挂载完毕)调用mounted
+                console.log('mounted');
+                setInterval(() => {
+                  this.opacity -= 0.01
+                  if (this.opacity <= 0) this.opacity = 1
+                }, 16);
+            },
+          })
+          // 通过外部的定时器实现(调用vm) (不推荐)
+          // setInterval(() => {
+          //    vm.opacity -= 0.01
+          //    if(vm.opacity <= 0) vm.opacity = 1
+          // }, 16);
+     </script>
+</body>
+</html>

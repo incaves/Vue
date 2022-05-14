@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+  <style>
+        *{
+          margin-top: 20px;
+        }
+        .demo1{
+          height: 50px;
+          background-color: aqua;
+        }
+        .box1{
+          padding: 5px;
+          background-color: blue;
+        }
+        .box2{
+          padding: 5px;
+          background-color: pink;
+        }
+        .list {
+         width: 200px;
+         height: 200px;
+         background-color: purple;
+         /* 滚动条 */
+         overflow: auto; 
+        }
+        li {
+           height: 100px;
+        }
+  </style>
+</head>
+<body>
+    <div id="app">
+        <h2>登高必{{name}}</h2>
+          <!-- 事件修饰符 -->
+          <!-- .prevent 阻止默认事件 -->
+        <a href="http://www.weibo.com" target="_blank" @click.prevent="showBtn1">跳转到微博</a>
+          <!-- .stop 阻止事件冒泡 -->
+         <div class="demo1" @click="showBtn2">
+           <button @click.stop="showBtn2">事件冒泡</button>
+         </div>
+          <!-- .once 事件只会触发一次 -->
+          <button @click.once="showBtn3">事件只会触发一次</button>
+          <!-- .capture 使用事件的捕获模式-->
+          <div class="box1" @click.capture="showMsg1(1)">
+             div1
+             <div class="box2" @click="showMsg1(2)">
+                div2
+             </div>
+          </div>
+          <!-- .self 只有event.target是当前元素时才触发 -->
+          <div class="demo1" @click.self=showBtn4>
+              <button @click="showBtn4">event.target</button>
+          </div>
+          <!-- .passive 事件的默认行为立即执行  无需等待事件回调执行完毕 -->
+          <ul class="list" @scroll="demo">
+              <li>页面上的滚动条滚动</li>
+              <li>滚动到底部事件不触发</li>
+              <li>3</li>
+              <li>4</li>
+          </ul>
+          <ul class="list" @wheel.passive="demo">
+            <li>鼠标滚轮滚动</li>
+            <li>滚到到底部事件还在触发</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+        <!-- 事件冒泡 -->
+        <div class="demo1" @click="showBtn2">
+          <a href="http://www.weibo.com" target="_blank"  @click.stop.prevent="showBtn2">事件冒泡</a>
+        </div>
+    </div>
+     <script>
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el:"#app",
+            data:{
+              name:"自卑"
+            },
+            methods:{
+              showBtn1(event){
+                //  e.preventDefault() 阻止默认行为 这里阻止跳转
+                 alert("杜甫")
+              },
+              //  点击了div中的按钮 但是谈了两次框 就是事件冒泡
+              showBtn2(e){
+                  //e.stopPropagation()  //阻止事件冒泡
+                   alert('事件冒泡')
+              },
+              showBtn3(){
+              
+                 alert('我只触发一次')
+              },
+              showMsg1(msg){
+                // 自动触发了冒泡阶段  打印 2  1 从里到外
+                // 想触发捕获阶段   打印  1 2  从外到内
+                 console.log(msg);
+              },
+              showBtn4(event){
+                  // alert('101')
+                  console.log(event.target);
+                  //没有阻止事件冒泡  但是显示外层也是button 
+                  //
+              },
+              demo(){
+                for (let i= 0; i < 10000; i++) {
+                     console.log("@");
+                }
+                console.log('循环完成');
+              }
+            }
+        })
+     </script>
+</body>
+
+</html>

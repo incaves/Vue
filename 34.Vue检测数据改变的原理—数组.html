@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+     <div id="app">
+           <h2>诗名:{{name}}</h2>
+           <h2>作者:{{address}}</h2>
+           <h2>朝代:{{leader}}</h2>
+           <hr />
+           <h1>信息</h1>
+           <button @click="addSex">添加一个性别属性默认值是男</button>
+           <h2>读者姓名:{{student.name}}</h2>
+           <h2 v-if="student.sex">性别:{{student.sex}}</h2>
+           <h2>读者姓名:{{student.age.sAge}}_{{student.age.rAge}}</h2>
+           <h2>读者朋友</h2>
+           <ul>
+               <li v-for="y in student.friends">朋友名字{{y.name}}——朋友年龄{{y.age}}</li>
+           </ul>
+           <!--  -->
+           <h2>爱好</h2>
+           <ul>
+               <li v-for="h in student.hobby">{{h}}</li>
+           </ul>
+          <!-- 
+             官网:Vue 将被侦听的数组的变更方法进行了包裹，所以它们也将会触发视图更新
+             通过实验发现 使用对象创建的属性都具有get set 数据响应式 修改页面跟着改 数组相反
+             set也可以实现有时候  
+           -->
+     </div>
+     <script>
+         Vue.config.productionTip = false
+         const vm = new Vue({
+             el:"#app",
+             data:{
+                name:"登高",
+                address:"杜甫",
+                leader:"",
+                student:{
+                  name:"tom",
+                  age:{
+                    rAge:40,
+                    sAge:20,
+                },
+                hobby:['抽烟','喝酒','烫头'],
+                friends:[
+                  {name:"zs",age:18},
+                  {name:"ls",age:29}
+                 ]
+                }
+             },
+             methods: {
+               addSex(){
+                  this.$set(this.student,'sex','男')                
+               }
+             },
+         })
+     </script>
+</body>
+</html>

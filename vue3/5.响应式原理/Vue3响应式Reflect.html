@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let obj = {
+      a: 1,
+      b: 2
+    }
+    console.log(obj.a);
+    console.log(window.Reflect.get(obj, 'a'));
+    console.log(window.Reflect.set(obj, 'a', 666));
+    console.log(window.Reflect.deleteProperty(obj, 'a'));
+    // Objcet
+    // Object.defineProperty(obj, 'c', {
+    //   get() {
+    //     return 3
+    //   }
+    // })
+    Object.defineProperty(obj, 'c', {
+      get() {
+        return 4
+      }
+    })
+    // Objcet.defineProperty 会报错
+    // 而且不容易捕获错误
+    // Reflect
+    // 返回true
+    const x1 = Reflect.defineProperty(obj, 'c', {
+      get() {
+        return 3
+      }
+    })
+    console.log(x1);
+    if (x1) {
+      console.log('成功');
+    } else {
+      console.log('失败');
+    }
+    // 容易捕获错误
+    // 返回false
+    const x2 = Reflect.defineProperty(obj, 'c', {
+      get() {
+        return 4
+      }
+    })
+    console.log(x2);
+  </script>
+</body>
+</html>

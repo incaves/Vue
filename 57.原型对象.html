@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    Vue.config.productionTip = false
+    // 定义一个构造函数
+    function Demo() {
+      this.a = 101
+      this.b = 202
+    }
+    // 创建一个demo的实例对象
+    const y = new Demo()
+    console.log(Demo.prototype); // prototype显示原型属性
+    console.log(y.__proto__); // __proto__ 隐式原型属性
+    // 他们两个指向一个地方称之为原型对象
+    // 通过显示原型属性操作原型对象 追加一个x属性 值为99
+    Demo.prototype.x = 99
+    console.log(y);
+    console.log(y.__proto__.x); // 99
+    console.log(y.x); // 99
+    console.log(Demo.prototype === y.__proto__); // true
+    // 只有函数身上才有prototype显示原型 没有隐式原型 隐式原型只有实例对象上有
+    // 实例的隐式原型对象永远指向自己缔造者的原型对象沿着自己缔造者的隐式原型链就找到了Ojcet.prototype
+    // Ojcet.prototype 的隐式原型等于 null 已经到了尽头
+  </script>
+</body>
+</html>

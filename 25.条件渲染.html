@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+  <!-- 
+     v-if 切换频率比较低的场景适用
+     不展示的DOM元素直接移除
+     结构不能被打断
+     v-show 切换频率比较高的场景适用
+     不展示的DOM元素不会被删除  display隐藏调了
+     
+     使用v-if时 元素可能无法获取到 而v-show可以
+     (例如:div设置了 v-show  还可以拿到该标签的节点)
+   -->
+     <div id="app">
+         <!-- v-show的底层原理就是 display:none  -->
+         <h2 v-show="false">登高必{{name}}</h2>
+         <h2 v-show="true">登高必{{name}}</h2>
+         <h2 v-show="showObj">登高必{{name}}</h2>
+         <h2 v-show="1 === 1 ? true : false">登高必{{name}}</h2>
+         <!-- v-if的底层原理 就是删除元素 -->
+         <h2 v-if="false">登高必{{name}}</h2>
+         <h2 v-if="1 === 1 ? true : false">登高必{{name}}</h2>
+         <!-- 如果切换频率特别高用v-show 没有删除节点元素 -->
+         <h2>当前的值时{{n}}</h2>
+         <button @click="n++">点击加n</button>
+         <div v-show="n === 1">Vue</div>
+         <div v-show="n === 2">React</div>
+         <div v-show="n === 3">element</div>
+         <div v-if="n === 4">Vue</div>
+         <div v-if="n === 5">React</div>
+         <div v-if="n === 6">element</div>
+         <!-- else --> 
+         <div v-if="n === 4">Vue</div>
+         <!-- <div>@</div> -->
+         <div v-else-if="n === 5">React</div>
+         <div v-else-if="n === 6">element</div>
+         <div v-else-if="n === 0">Ant</div>
+         <div v-else>0</div> 
+         <!-- v-if不能被打断 要紧挨在一起 -->
+         <h2 v-show="n === 1">你</h2>
+         <h2 v-show="n === 1">y</h2>
+         <h2 v-show="n === 1">y</h2>
+         <!-- 有点影响结构 -->
+         <div v-show="n===1">
+           <h2>1</h2>
+           <h2>2</h2>
+           <h2>3</h2>
+         </div>
+         <!-- template只能配合v-if  不能配合v-show -->
+         <!-- template不会影响结构(检查器内不现实) -->
+         <template v-if="n===5">
+            <h2>101</h2>
+            <h2>202</h2>
+            <h2>303</h2>
+         </template>
+     </div>
+     <script>
+         Vue.config.productionTip = false
+         const vm = new Vue({
+            el:"#app",
+            data:{
+               name:"自卑",
+               showObj:true,
+               n:0
+            },
+         })
+     </script>
+</body>
+</html>

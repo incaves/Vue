@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+      <h2>今天天气很{{info}}</h2>
+      <button @click="changeClick">切换天气</button>
+  </div>
+      <script>
+         Vue.config.productionTip = false
+         const vm = new Vue({
+            el:"#app",
+            data:{
+              isHot:true,
+            },
+            methods: {
+              changeClick(){
+                  this.isHot = !this.isHot
+              }
+            },
+            computed:{
+                info(){
+                  return this.isHot ? "炎热" : "凉爽"
+                }
+            },
+            watch:{
+              // 前提是不需要配置项(immediate和deep)就可以简写
+              isHot:{
+                 handler(newValue,oldVlaue){
+                    console.log(newValue,oldVlaue)
+                 }
+              },
+              // 简写
+              isHot(newValue,oldVlaue){
+                console.log(newValue,oldVlaue)
+              }
+            }
+         })
+        //正常
+         vm.$watch('isHot',{
+           immediate:true,
+           deep:true,
+           handler(newValue,oldVlaue){
+               console.log(newValue,oldVlaue)
+           }
+         })
+        // 简写
+         vm.$watch('isHot',function(newValue,oldVlaue){
+              console.log(newValue,oldVlaue)
+              console.log(this); // 原来的this指向vm
+              console.log(this); // 如果使用箭头函数指向window
+         })
+      </script>
+</body>
+</html>

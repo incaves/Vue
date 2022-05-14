@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./JS/vue.js"></script>
+</head>
+<body>
+     <div id="app">
+       <input type="text" placeholder="请输入名字" v-model="keyWord">
+         <ul>
+           <li v-for="(i,index) in filPerons" :key="i.id">
+            姓名{{i.name}}-年龄{{i.age}}-性别{{i.sex}}
+            </li>  
+     </div>
+     <script>
+         Vue.config.productionTip = false
+        //  用watch实现
+        //  #region
+         const vm = new Vue({
+             el:"#app",
+             data:{
+               keyWord:"",
+               list:[
+                  {id:1,name:"马冬梅",age:19,sex:"女"},
+                  {id:2,name:"周冬雨",age:18,sex:"女"},
+                  {id:3,name:"周杰伦",age:17,sex:"男"},
+                  {id:4,name:"温兆伦",age:17,sex:"男"}
+               ],
+               filPerons:[]
+             },
+             watch:{
+                // 数据发生改变
+                keyWord:{
+                  immediate:true,
+                  handler (val){
+                     // filter返回新数组 这里目前交个新数组
+                     this.filPerons =  this.list.filter((y)=>{
+                      //  indexOf('') 空字符串 返回0
+                      // indexOf查询字符出现的位置 如果出现返回该字符的索引位置 如果不出现返回-1
+                        return y.name.indexOf(val) !== -1  // 过滤出来 不是过滤出去
+                    })
+                  }
+                }
+             }
+         })
+        //#endregion
+       const vm = new Vue({
+        el:"#app",
+        data:{
+               keyWord:"",
+               list:[
+                  {id:1,name:"马冬梅",age:19,sex:"女"},
+                  {id:2,name:"周冬雨",age:18,sex:"女"},
+                  {id:3,name:"周杰伦",age:17,sex:"男"},
+                  {id:4,name:"温兆伦",age:17,sex:"男"}
+               ],
+               
+          },
+          computed:{
+             filPerons(){
+                return this.list.filter((y)=>{
+                    return y.name.indexOf(this.keyWord) !== -1  
+                 })
+             }
+          }
+        })
+     </script>
+</body>
+</html> 
